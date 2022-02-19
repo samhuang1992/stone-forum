@@ -1,5 +1,5 @@
-const { Stone, User, Category } = require('../models')
-const { localFileHandler } = require('../helpers/file-helpers')
+const { Stone } = require('../models')
+const { imgurFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
   getRestaurants: (req, res, next) => {
@@ -22,15 +22,15 @@ const adminController = {
     if (!name) throw new Error('Event name is required!')
     // 產生一個新的 Restaurant 物件實例，並存入資料庫
     const { file } = req
-    localFileHandler(file)
+    imgurFileHandler(file)
       .then(filePath => Stone.create({
-          name,
-          address,
-          date,
-          description,
-          image: filePath || null,
-          party
-        }))
+        name,
+        address,
+        date,
+        description,
+        image: filePath || null,
+        party
+      }))
       .then(() => {
         req.flash('success_messages', 'event was successfully created')
         res.redirect('/events')
@@ -47,7 +47,7 @@ const adminController = {
     })
       .then(event => {
         if (!event) throw new Error("Event didn't exist!")
-        res.render('event', { restaurant:event })
+        res.render('event', { restaurant: event })
       })
       .catch(err => next(err))
   },
@@ -57,7 +57,7 @@ const adminController = {
     })
       .then(event => {
         if (!event) throw new Error("Event didn't exist!")
-        res.render('edit-event', { restaurant:event })
+        res.render('edit-event', { restaurant: event })
       })
       .catch(err => next(err))
   },
@@ -69,7 +69,7 @@ const adminController = {
     Promise.all([
       Stone.findByPk(req.params.id),
       // 把檔案傳到file-helpers處理
-      localFileHandler(file)
+      imgurFileHandler(file)
     ])
       // 兩件事情都處理後
       .then(([event, filePath]) => {
@@ -80,7 +80,7 @@ const adminController = {
           date,
           description,
           // 如果有上傳照片就用filePath, 沒有則保留資料庫原有照片
-          image: filePath || restaurant.image,
+          image: filePath || event.image,
           party
         })
       })
@@ -124,6 +124,6 @@ const adminController = {
   //       res.redirect('/admin/users')
   //     })
   //     .catch(err => next(err))
-    
+
 }
 module.exports = adminController
