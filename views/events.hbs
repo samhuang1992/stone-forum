@@ -1,0 +1,37 @@
+<br />
+<table class="table align-middle">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">編號</th>
+      <th scope="col">事件</th>
+      <th scope="col">苦主</th>
+      {{!-- <th scope="col">分類</th> --}}
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each restaurants}}
+      <tr>
+        <th scope="row">{{this.id}}</th>
+        <td>{{this.name}}</td>
+        <td>{{this.party}}</td>
+        {{!-- <td>{{this.Category.name}}</td> --}}
+        <td>
+          <button type="button" class="btn btn-link">
+            <a class="btn btn-link link-primary" href="/event/{{this.id}}">
+              事件說明
+            </a>
+          </button>
+          <button type="button" class="btn btn-link">
+            <a class="btn btn-link link-primary" href="/event/{{this.id}}/edit">
+              編輯事件
+            </a>
+          </button>
+          <form action="/events/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="btn btn-link link-danger" onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">刪除</button>
+          </form>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

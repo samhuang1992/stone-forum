@@ -1,0 +1,30 @@
+<div class="form-row mb-3">
+  <label class="form-label" for="name">苦主</label>
+  <input class="form-control" type="text" name="party" id="party" placeholder="Enter name" value="{{restaurant.party}}" required>
+</div>
+
+<div class="form-row mb-3">
+  <label class="form-label" for="name">事件名稱</label>
+  <input class="form-control" type="text" name="name" id="name" placeholder="Enter name" value="{{restaurant.name}}" required>
+</div>
+
+<div class="form-row mb-3">
+  <label class="form-label" for="address">事發地點</label>
+  <input class="form-control" type="text" name="address" id="address" placeholder="Enter address" value="{{restaurant.address}}">
+</div>
+
+<div class="form-row mb-3">
+  <label class="form-label" for="openingHours">事發時間</label>
+  <input class="form-control" type="date" name="openingHours" id="openingHours" placeholder="Enter opening hours" value="{{restaurant.date}}">
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="description">事件描述</label>
+  <textarea class="form-control" id="description" name="description" rows="3">{{restaurant.description}}</textarea>
+</div>
+<div class="form-row mb-3">
+  <label class="form-label" for="image">事件圖或梗圖</label>
+  <input class="form-control-file" class="form-control" type="file" name="image" id="image">
+</div>
+
+<button type="submit" class="btn btn-primary">送出</button>
+<a class="btn btn-outline-secondary" href="javascript:history.back()">返回</a>
